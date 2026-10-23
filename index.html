@@ -4,17 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>สต็อกยาง</title>
-<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-icon" href="icon-180.png?v=2">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-title" content="สต็อกยาง">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1d4ed8">
 <script>
   // ===== วางลิงก์ระบบ (ที่ลงท้ายด้วย /exec) ระหว่างเครื่องหมาย ' ' บรรทัดล่างนี้ =====
-  var APP_URL = 'https://script.google.com/macros/s/AKfycby2dTEIkdJAYl3z30RU27uPbngZEG4Hu1cIYVRXxoKyKBa0iAav1e4kz2DE1GK5qpKw/exec';
+  var APP_URL = 'วางลิงก์ระบบตรงนี้';
   // =============================================================================
-  // เปิดจากไอคอนบนหน้าจอ (มี ?go=1) → เข้าระบบทันที
-  if (/[?&]go=1/.test(location.search) && /^https:\/\//.test(APP_URL)) location.replace(APP_URL);
+  // เปิดจากไอคอนบนหน้าจอ (โหมดแอป) → เข้าระบบทันที / เปิดจากเบราว์เซอร์ปกติ → แสดงหน้าวิธีติดตั้ง
+  var IS_APP = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  if (IS_APP && /^https:\/\//.test(APP_URL)) location.replace(APP_URL);
 </script>
 <style>
   :root{--bg:#f1f4f9;--card:#fff;--ink:#0f172a;--mute:#64748b;--pri:#1d4ed8}
@@ -44,8 +47,6 @@
   var ok = /^https:\/\//.test(APP_URL);
   document.getElementById('go').href = ok ? APP_URL : '#';
   if (!ok) document.getElementById('bad').style.display = 'block';
-  // ทำให้ไอคอนที่เพิ่มบน iPhone จำ ?go=1 ไว้ → เปิดจากไอคอนแล้วเข้าระบบเลย
-  if (ok && !/[?&]go=1/.test(location.search)) history.replaceState(null, '', location.pathname + '?go=1');
 </script>
 </body>
 </html>
