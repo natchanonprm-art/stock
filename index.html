@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สต็อกยาง</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="สต็อกยาง">
+<meta name="theme-color" content="#1d4ed8">
+<script>
+  // ===== วางลิงก์ระบบ (ที่ลงท้ายด้วย /exec) ระหว่างเครื่องหมาย ' ' บรรทัดล่างนี้ =====
+  var APP_URL = 'วางลิงก์ระบบตรงนี้';
+  // =============================================================================
+  // เปิดจากไอคอนบนหน้าจอ (มี ?go=1) → เข้าระบบทันที
+  if (/[?&]go=1/.test(location.search) && /^https:\/\//.test(APP_URL)) location.replace(APP_URL);
+</script>
+<style>
+  :root{--bg:#f1f4f9;--card:#fff;--ink:#0f172a;--mute:#64748b;--pri:#1d4ed8}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#131c2e;--ink:#e2e8f0;--mute:#94a3b8}}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"Segoe UI",Tahoma,sans-serif}
+  .w{max-width:440px;margin:0 auto;padding:32px 16px}
+  .hd{display:flex;align-items:center;gap:14px;margin-bottom:22px}.hd img{width:64px;height:64px;border-radius:16px}
+  h1{font-size:22px;margin:0}.hd p{margin:0;color:var(--mute);font-size:14px}
+  .btn{display:block;text-align:center;background:var(--pri);color:#fff;text-decoration:none;font-weight:600;border-radius:14px;padding:14px;margin:0 0 22px}
+  .c{background:var(--card);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+  .c h2{font-size:16px;margin:0 0 6px}.c ol{margin:0;padding-left:20px}.c li{margin:3px 0}
+  .warn{background:#fff3d6;color:#7a5300;border-radius:12px;padding:10px 14px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="hd"><img src="icon-180.png" alt=""><div><h1>ระบบสต็อกยาง</h1><p>Automax · Wiztire</p></div></div>
+  <div id="bad" class="warn" style="display:none">ยังไม่ได้ใส่ลิงก์ระบบในไฟล์ index.html</div>
+  <a class="btn" id="go" href="#">เข้าระบบ</a>
+  <div class="c"><h2>📱 iPhone — เพิ่มไอคอนบนหน้าจอ</h2>
+    <ol><li>เปิดหน้านี้ใน <b>Safari</b></li><li>กดปุ่ม <b>แชร์</b> (สี่เหลี่ยมมีลูกศรขึ้น)</li><li>เลือก <b>เพิ่มไปยังหน้าจอโฮม</b> → <b>เพิ่ม</b></li></ol></div>
+  <div class="c"><h2>🤖 Android — เพิ่มไอคอนบนหน้าจอ</h2>
+    <ol><li>เปิดหน้านี้ใน <b>Chrome</b></li><li>กด <b>⋮</b> มุมขวาบน</li><li>เลือก <b>เพิ่มลงในหน้าจอหลัก</b> → <b>เพิ่ม</b></li></ol></div>
+  <p style="color:var(--mute);font-size:13px">ครั้งต่อไปกดไอคอน "สต็อกยาง" บนหน้าจอ จะเข้าระบบทันที</p>
+</div>
+<script>
+  var ok = /^https:\/\//.test(APP_URL);
+  document.getElementById('go').href = ok ? APP_URL : '#';
+  if (!ok) document.getElementById('bad').style.display = 'block';
+  // ทำให้ไอคอนที่เพิ่มบน iPhone จำ ?go=1 ไว้ → เปิดจากไอคอนแล้วเข้าระบบเลย
+  if (ok && !/[?&]go=1/.test(location.search)) history.replaceState(null, '', location.pathname + '?go=1');
+</script>
+</body>
+</html>
