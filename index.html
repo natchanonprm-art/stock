@@ -17,7 +17,12 @@
   // =============================================================================
   // เปิดจากไอคอนบนหน้าจอ (โหมดแอป) → เข้าระบบทันที / เปิดจากเบราว์เซอร์ปกติ → แสดงหน้าวิธีติดตั้ง
   var IS_APP = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-  if (IS_APP && /^https:\/\//.test(APP_URL)) location.replace(APP_URL);
+  var IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (IS_APP && /^https:\/\//.test(APP_URL)) {
+    // iPhone: เปิดระบบในแอป Safari จริง (จำล็อกอินเดิมได้) / Android: เปิดใน Chrome
+    if (IOS) location.href = 'x-safari-' + APP_URL;
+    else location.replace(APP_URL);
+  }
 </script>
 <style>
   :root{--bg:#f1f4f9;--card:#fff;--ink:#0f172a;--mute:#64748b;--pri:#1d4ed8}
@@ -45,7 +50,9 @@
 </div>
 <script>
   var ok = /^https:\/\//.test(APP_URL);
-  document.getElementById('go').href = ok ? APP_URL : '#';
+  document.getElementById('go').href = ok ? (IS_APP && IOS ? 'x-safari-' + APP_URL : APP_URL) : '#';
+  // กดไอคอนซ้ำ (แอปยังค้างอยู่เบื้องหลัง) → เปิดระบบให้อีกครั้ง
+  if (ok && IS_APP && IOS) document.addEventListener('visibilitychange', function () { if (!document.hidden) location.href = 'x-safari-' + APP_URL; });
   if (!ok) document.getElementById('bad').style.display = 'block';
 </script>
 </body>
